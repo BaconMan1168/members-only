@@ -7,6 +7,7 @@ const createTables = `
     CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
         username VARCHAR (255) UNIQUE,
+        password TEXT,
         firstname VARCHAR (255),
         lastname VARCHAR (255),
         is_member BOOLEAN DEFAULT false,
@@ -22,20 +23,6 @@ const createTables = `
     );
 `
 
-const populateTables = `
-    INSERT INTO users (username, firstname, lastname) 
-    VALUES ('lta', 'liz', 'lee');
-    
-    INSERT INTO users (username, firstname, lastname, is_member, is_admin)
-    VALUES ('admin_guy', 'admin', 'guy', true, true);
-
-    INSERT INTO users (username, firstname, lastname, is_member)
-    VALUES ('club_member', 'club', member, true)
-
-
-    INSERT INTO messages (user_id, title, message_text, date_posted) 
-    VALUES (1, 'First Message', 'Hello World!', 'Sun Nov 9 2025')
-`
 
 async function main() {
   console.log("seeding...");
