@@ -8,14 +8,19 @@
     <body>
         <h1>Log in</h1>
 
-        <label for="username">
-            Username:
-            <input type="text" id="username" name="username">
-        </label>
+        <form action="/users/login" method="POST">
+            <label for="username">
+                Username:
+                <input type="text" id="username" name="username">
+            </label>
 
-        <label for="password">
-            Password:
-            <input type="text" id="password" name="password" >
-        </label>
+            <label for="password">
+                Password:
+                <input type="text" id="password" name="password" >
+            </label>
+
+            <button>Log In</button>
+        </form>
+        
     </body>
 </html>
