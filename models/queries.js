@@ -24,23 +24,13 @@ async function makeAdmin(username){
 }
 
 async function getMessages(memberStatus){
-    if (memberStatus){
-        const { rows } = await pool.query(`
-            SELECT username, title, message, date_posted
-            FROM users INNER JOIN messages
-            ON id = user_id;    
-        `)
+    const { rows } = await pool.query(`
+        SELECT message_id, username, title, message, date_posted
+        FROM users INNER JOIN messages
+        ON id = user_id;    
+    `)
 
-        return rows;
-    }
-    else {
-        const { rows } = await pool.query(`
-            SELECT title, message, date_posted
-            FROM messages;   
-        `)
-
-        return rows;
-    }
+    return rows;
 }
 
 async function createMessage(data){

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Home</title>
+    </head>
+    <body>
+        <% messages.forEach(message => { %>
+            <div>
+                <h2><%= message.title %></h2>
+                <p><%= message.message_text %></p>
+                <p><%= message.date_added %></p>
+                
+                <% if (isMember) { %>
+                    <h3><%= message.username %></h3>
+                <% } %>
+
+                <% if (isAdmin) { %>
+                    <form action="/delete-message" method="POST">
+                        <input type="hidden" name="message_id" value="<%= message.message_id %>">
+                        <button type="submit">Delete</button>
+                    </form>
+                <% } %>
+            </div>
+        <% }) %>
+    </body>
+</html>
