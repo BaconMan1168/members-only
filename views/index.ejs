@@ -14,7 +14,10 @@
                 
                 <% if (isMember) { %>
                     <h3><%= message.username %></h3>
+                <% } else { %>
+                    <h3>Anonymous Poster</h3>
                 <% } %>
+
 
                 <% if (isAdmin) { %>
                     <form action="/delete-message" method="POST">
