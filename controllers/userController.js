@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs')
 const { validationResult, matchedData } = require("express-validator")
 const { validateRegister, validateLogin } = require('../validator')
 const passport = require('passport')
+const isAuth = require('../authMiddleware').isAuth
 
 function getSignUpForm(req, res){
     res.render('sign-up');
@@ -12,13 +13,17 @@ function getLoginForm(req, res){
     res.render('login');
 }
 
-function getMemberForm(req, res){
-    res.render('memberForm');
-}
+const getMemberForm = [
+    isAuth,
+    (req, res) => res.render('memberForm')
+]
 
-function getAdminForm(req, res){
-    res.render('adminForm')
-}
+const getAdminForm = [
+    isAuth,
+    (req, res) => res.render('adminForm')
+]
+
+
 
 const registerUser = [
     validateRegister,
