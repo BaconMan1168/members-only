@@ -23,7 +23,7 @@ async function makeAdmin(username){
     `, [username])
 }
 
-async function getMessages(memberStatus){
+async function getMessages(){
     const { rows } = await pool.query(`
         SELECT message_id, username, title, message, date_posted
         FROM users INNER JOIN messages
@@ -53,7 +53,16 @@ async function findUserByName(name){
         WHERE username = $1
     `, [name])
 
-    return rows;
+    return rows[0];
+}
+
+async function findUserById(id){
+    const { rows } = await pool.query(`
+        SELECT * FROM users 
+        WHERE username = $1
+    `, [id])
+
+    return rows[0];
 }
 
 module.exports = {
@@ -63,6 +72,7 @@ module.exports = {
     getMessages,
     createMessage,
     deleteMessage,
-    findUserByName
+    findUserByName,
+    findUserById
 }
 

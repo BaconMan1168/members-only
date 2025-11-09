@@ -1,5 +1,4 @@
 const { body } = require("express-validator");
-const db = require('./models/queries')
 
 const validateRegister = [
     body("firstname").trim()
