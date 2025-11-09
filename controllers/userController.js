@@ -12,6 +12,14 @@ function getLoginForm(req, res){
     res.render('login');
 }
 
+function getMemberForm(req, res){
+    res.render('memberForm');
+}
+
+function getAdminForm(req, res){
+    res.render('adminForm')
+}
+
 const registerUser = [
     validateRegister,
     async (req, res) => {
