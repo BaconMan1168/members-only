@@ -57,3 +57,12 @@ async function deleteMessage(id){
     `, [id])
 }
 
+module.exports = {
+    createUser,
+    makeMember,
+    makeAdmin,
+    getMessages,
+    createMessage,
+    deleteMessage
+}
+
