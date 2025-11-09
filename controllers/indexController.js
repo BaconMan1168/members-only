@@ -1,4 +1,5 @@
 const db = require ('../models/queries')
+const isAuth = require('../authMiddleware').isAuth
 
 async function getHomePage(req, res){
     const msgs = db.getMessages();
@@ -16,9 +17,24 @@ async function getHomePage(req, res){
     }
 }
 
+const getMessageForm = [
+    isAuth,
+    async (req, res) => {
+        res.render('messageForm')
+    }
+]
+
+
 async function postMessage(req, res){
     const msg = req.body;
-    await db.createMessage(msg);
+    const fullData = {
+        title: msg.title,
+        message_text: msg.message_text,
+        user_id: req.user.user_id,
+        date_posted: new Date().toDateString()
+    }
+
+    await db.createMessage(fullData);
     res.redirect('/')
 }
 
@@ -26,4 +42,11 @@ async function deleteMessage(req, res){
     const messageId = req.body.message_id;
     await db.deleteMessage(messageId);
     res.redirect('/');
+}
+
+module.exports = {
+    getHomePage,
+    postMessage,
+    deleteMessage,
+    getMessageForm
 }
