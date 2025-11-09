@@ -2,9 +2,9 @@ const pool = require('./pool')
 
 async function createUser(user){
     await pool.query(`
-        INSERT INTO users (username, firstname, lastname)
+        INSERT INTO users (username, firstname, lastname, password)
         VALUES ($1, $2, $3)    
-    `, [user.username, user.firstName, user.lastName])
+    `, [user.username, user.firstName, user.lastName, user.password])
 }
 
 async function makeMember(username){
@@ -57,12 +57,22 @@ async function deleteMessage(id){
     `, [id])
 }
 
+async function findUserByName(name){
+    const { rows } = await pool.query(`
+        SELECT * FROM users 
+        WHERE username = $1
+    `, [name])
+
+    return rows;
+}
+
 module.exports = {
     createUser,
     makeMember,
     makeAdmin,
     getMessages,
     createMessage,
-    deleteMessage
+    deleteMessage,
+    findUserByName
 }
 

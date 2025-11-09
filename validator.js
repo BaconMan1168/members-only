@@ -1,12 +1,22 @@
-const { body, validationResult, matchedData } = require("express-validator");
+const { body } = require("express-validator");
+const db = require('./models/queries')
 
-const validateUser = [
+const validateRegister = [
     body("firstname").trim()
         .isAlpha(),
     body("lastname").trim()
+        .isAlpha(),
+    body('confirm-password').custom((value, { req }) => {
+        return value === req.body.password;
+    })
+]
+
+const validateLogin = [
+    body("username").trim()
         .isAlpha()
 ]
 
 module.exports = {
-    validateUser
+    validateRegister,
+    validateLogin
 }
