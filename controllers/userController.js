@@ -82,6 +82,17 @@ async function makeUserAdmin(req, res){
     }
 }
 
+module.exports = {
+    getSignUpForm,
+    getLoginForm,
+    getMemberForm,
+    getAdminForm,
+    registerUser,
+    loginUser,
+    makeUserAdmin,
+    makeUserMember
+}
+
 
 
 
