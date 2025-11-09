@@ -3,7 +3,7 @@ const pool = require('./pool')
 async function createUser(user){
     await pool.query(`
         INSERT INTO users (username, firstname, lastname, password)
-        VALUES ($1, $2, $3)    
+        VALUES ($1, $2, $3, $4d)    
     `, [user.username, user.firstName, user.lastName, user.password])
 }
 
@@ -25,7 +25,7 @@ async function makeAdmin(username){
 
 async function getMessages(){
     const { rows } = await pool.query(`
-        SELECT message_id, username, title, message, date_posted
+        SELECT message_id, username, title, message_text, date_posted
         FROM users INNER JOIN messages
         ON id = user_id;    
     `)

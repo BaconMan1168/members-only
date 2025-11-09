@@ -13,7 +13,9 @@ const validateRegister = [
             throw new Error('Username already in use');
         }
     }),
-    body('confirm-password').custom((value, { req }) => {
+    body("password").trim()
+        .notEmpty(),
+    body("confirm-password").custom((value, { req }) => {
         return value === req.body.password;
     })
 ]

@@ -36,6 +36,8 @@ const registerUser = [
         }
 
         const user = matchedData(req);
+        console.log(user);
+        
         try {
             const hashedPassword = await bcrypt.hash(user.password, 10);
             user.password = hashedPassword;

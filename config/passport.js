@@ -6,7 +6,7 @@ const bcrypt = require('bcryptjs')
 
 async function verifyUser(username, password, done){
     try {
-        const user = db.findUserByName(username);
+        const user = await db.findUserByName(username);
 
         if (!user) {
             return done(null, false, { message: "Incorrect username or password"})
