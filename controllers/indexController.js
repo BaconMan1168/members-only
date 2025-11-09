@@ -15,3 +15,15 @@ async function getHomePage(req, res){
         res.redirect('/users/sign-up')
     }
 }
+
+async function postMessage(req, res){
+    const msg = req.body;
+    await db.createMessage(msg);
+    res.redirect('/')
+}
+
+async function deleteMessage(req, res){
+    const messageId = req.body.message_id;
+    await db.deleteMessage(messageId);
+    res.redirect('/');
+}
