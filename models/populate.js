@@ -17,7 +17,7 @@ const createTables = `
         message_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
         user_id INTEGER references users(id) ON DELETE CASCADE,
         title VARCHAR (255),
-        message TEXT,
+        message_text TEXT,
         date_posted VARCHAR (255)
     );
 `
@@ -33,7 +33,7 @@ const populateTables = `
     VALUES ('club_member', 'club', member, true)
 
 
-    INSERT INTO messages (user_id, title, message, date_posted) 
+    INSERT INTO messages (user_id, title, message_text, date_posted) 
     VALUES (1, 'First Message', 'Hello World!', 'Sun Nov 9 2025')
 `
 
