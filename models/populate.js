@@ -37,7 +37,6 @@ async function main() {
   });
   await client.connect();
   await client.query(createTables);
-  await client.query(populateTables);
   await client.end();
   console.log("done");
 }

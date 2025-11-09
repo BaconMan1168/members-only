@@ -17,7 +17,9 @@ const registerUser = [
     async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.send("Form info was not valid") 
+            return res.status(404).render('errorPage', {
+                message: "Error in form submission"
+            }) 
         }
 
         const user = matchedData(req);
@@ -28,7 +30,9 @@ const registerUser = [
         }
         catch (err){
             console.error(err);
-            return res.status(500).send("Something went wrong.");
+            return res.status(500).render('errorPage', {
+                message: "Error in creating user"
+            });
         }
         res.redirect('/users/login')
     }
@@ -39,7 +43,9 @@ const loginUser = [
     async (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.send("Form info was not valid") 
+            return res.status(404).render('errorPage', {
+                message: "Error in form submission"
+            }) 
         }
         next();
     },
