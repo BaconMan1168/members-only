@@ -11,5 +11,7 @@ userRouter.get('/member-form', userController.getMemberForm);
 userRouter.post('/member-form', userController.makeUserMember);
 userRouter.get('/admin-form', userController.getAdminForm);
 userRouter.post('/admin-form', userController.makeUserAdmin);
+userRouter.get('/login-success', userController.getLoginSuccess);
+userRouter.get('/login-failure', userController.getLoginFail);
 
 module.exports = userRouter;

@@ -3,7 +3,7 @@ const pool = require('./pool')
 async function createUser(user){
     await pool.query(`
         INSERT INTO users (username, firstname, lastname, password)
-        VALUES ($1, $2, $3, $4d)    
+        VALUES ($1, $2, $3, $4)    
     `, [user.username, user.firstName, user.lastName, user.password])
 }
 
@@ -59,7 +59,7 @@ async function findUserByName(name){
 async function findUserById(id){
     const { rows } = await pool.query(`
         SELECT * FROM users 
-        WHERE username = $1
+        WHERE id = $1
     `, [id])
 
     return rows[0];

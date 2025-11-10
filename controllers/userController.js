@@ -13,6 +13,14 @@ function getLoginForm(req, res){
     res.render('login');
 }
 
+function getLoginSuccess(req, res){
+    res.render('loginSuccess');
+}
+
+function getLoginFail(req, res){
+    res.render('loginFailure')
+}
+
 const getMemberForm = [
     isAuth,
     (req, res) => res.render('memberForm')
@@ -22,6 +30,7 @@ const getAdminForm = [
     isAuth,
     (req, res) => res.render('adminForm')
 ]
+
 
 
 
@@ -36,7 +45,6 @@ const registerUser = [
         }
 
         const user = matchedData(req);
-        console.log(user);
         
         try {
             const hashedPassword = await bcrypt.hash(user.password, 10);
@@ -64,17 +72,19 @@ const loginUser = [
         }
         next();
     },
-    passport.authenticate('local', { failureRedirect: '/login-failure', successRedirect: '/login-success' })
+    passport.authenticate('local', { failureRedirect: '/users/login-failure', successRedirect: '/users/login-success' })
 ]
 
 async function makeUserMember(req, res){
-    const { username, memberPassword } = req.body;
+    const { memberPassword } = req.body;
+    const username = req.user.username;
 
     if (memberPassword != process.env.MEMBER_PASSWORD){
         res.render('errorPage', { message: "Wrong Member Password" })
     }
     else {
         await db.makeMember(username);
+        res.redirect('/');
     }
 }
 
@@ -86,8 +96,11 @@ async function makeUserAdmin(req, res){
     }
     else {
         await db.makeAdmin(username);
+        res.redirect('/');
     }
 }
+
+
 
 module.exports = {
     getSignUpForm,
@@ -97,7 +110,9 @@ module.exports = {
     registerUser,
     loginUser,
     makeUserAdmin,
-    makeUserMember
+    makeUserMember,
+    getLoginFail,
+    getLoginSuccess
 }
 
 

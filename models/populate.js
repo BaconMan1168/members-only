@@ -24,6 +24,8 @@ const createTables = `
 `
 
 
+
+
 async function main() {
   console.log("seeding...");
 

@@ -2,14 +2,20 @@ const db = require ('../models/queries')
 const isAuth = require('../authMiddleware').isAuth
 
 async function getHomePage(req, res){
-    const msgs = db.getMessages();
+    const msgs = await db.getMessages();
 
     if (req.user){
-        if (req.user.is_admin){
+        if (msgs.length === 0){
+            res.redirect('/create-message');
+        }
+        else if (req.user.is_admin){
             res.render('index', { messages: msgs, isMember: true, isAdmin: true })
         }
         else if (req.user.is_member){
             res.render('index', { messages: msgs, isMember: true, isAdmin: false })
+        }
+        else {
+            res.render('index', { messages: msgs, isMember: false, isAdmin: false })
         }
     }
     else {
@@ -27,10 +33,11 @@ const getMessageForm = [
 
 async function postMessage(req, res){
     const msg = req.body;
+    
     const fullData = {
         title: msg.title,
         message_text: msg.message_text,
-        user_id: req.user.user_id,
+        user_id: req.user.id,
         date_posted: new Date().toDateString()
     }
 
