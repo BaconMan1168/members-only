@@ -89,7 +89,8 @@ async function makeUserMember(req, res){
 }
 
 async function makeUserAdmin(req, res){
-    const { username, adminPassword } = req.body;
+    const { adminPassword } = req.body;
+    const username = req.user.username
 
     if (adminPassword != process.env.ADMIN_PASSWORD){
         res.render('errorPage', { message: "Wrong Admin Password" })
